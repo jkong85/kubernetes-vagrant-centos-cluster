@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: car2
+spec:
+  containers:
+  - name: car2
+    image: jkong85/ditto-dind:1.1
+    securityContext:
+        privileged: true
+    imagePullPolicy: Always
+    command: ["/bin/sh"]
+    args: ["-c", "while true; do echo hello; sleep 10;done"]
