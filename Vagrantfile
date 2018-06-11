@@ -134,11 +134,11 @@ EOF
         rm -rf ~/.docker/
         yum install -y docker.x86_64
 
-#cat > /etc/docker/daemon.json <<EOF
-#{
-#  "registry-mirrors" : ["http://2595fda0.m.daocloud.io"]
-#}
-#EOF
+cat > /etc/docker/daemon.json <<EOF
+{
+  "registry-mirrors" : ["http://2595fda0.m.daocloud.io"]
+}
+EOF
 
 if [[ $1 -eq 1 ]];then
     yum install -y etcd
