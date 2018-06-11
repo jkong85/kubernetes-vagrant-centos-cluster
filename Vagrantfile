@@ -67,7 +67,7 @@ Vagrant.configure("2") do |config|
     ip = "172.17.8.#{i+100}"
     node.vm.network "private_network", ip: ip
     node.vm.network "public_network", bridge: "wlx7cdd905e0129", auto_config: true
-    node.vm.synced_folder "/home/kj/Share", "/home/vagrant/share"
+    #node.vm.synced_folder "/home/kj/Share", "/home/vagrant/share"
 
     node.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
