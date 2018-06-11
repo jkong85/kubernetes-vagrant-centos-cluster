@@ -66,8 +66,8 @@ Vagrant.configure("2") do |config|
     node.vm.hostname = "node#{i}"
     ip = "172.17.8.#{i+100}"
     node.vm.network "private_network", ip: ip
-    node.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)", auto_config: true
-    #node.vm.synced_folder "/Users/DuffQiu/share", "/home/vagrant/share"
+    node.vm.network "public_network", bridge: "wlx7cdd905e0129", auto_config: true
+    node.vm.synced_folder "/home/kj/Share", "/home/vagrant/share"
 
     node.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
@@ -75,21 +75,21 @@ Vagrant.configure("2") do |config|
   #
   #   # Customize the amount of memory on the VM:
       vb.memory = "3072"
-      vb.cpus = 1
+      vb.cpus = 3 
       vb.name = "node#{i}"
     end
 
     node.vm.provision "shell" do |s|
       s.inline = <<-SHELL
         # change time zone
-        cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-        timedatectl set-timezone Asia/Shanghai
-        rm /etc/yum.repos.d/CentOS-Base.repo
-        cp /vagrant/yum/*.* /etc/yum.repos.d/
-        mv /etc/yum.repos.d/CentOS7-Base-163.repo /etc/yum.repos.d/CentOS-Base.repo
+        #cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+        #timedatectl set-timezone Asia/Shanghai
+        #rm /etc/yum.repos.d/CentOS-Base.repo
+        #cp /vagrant/yum/*.* /etc/yum.repos.d/
+        #mv /etc/yum.repos.d/CentOS7-Base-163.repo /etc/yum.repos.d/CentOS-Base.repo
         # using socat to port forward in helm tiller
         # install  kmod and ceph-common for rook
-        yum install -y wget curl conntrack-tools vim net-tools socat ntp kmod ceph-common
+        yum install -y wget curl conntrack-tools vim net-tools socat ntp kmod ceph-common lynx
         # enable ntp to sync time
         echo 'sync time'
         systemctl start ntpd
@@ -134,11 +134,11 @@ EOF
         rm -rf ~/.docker/
         yum install -y docker.x86_64
 
-cat > /etc/docker/daemon.json <<EOF
-{
-  "registry-mirrors" : ["http://2595fda0.m.daocloud.io"]
-}
-EOF
+#cat > /etc/docker/daemon.json <<EOF
+#{
+#  "registry-mirrors" : ["http://2595fda0.m.daocloud.io"]
+#}
+#EOF
 
 if [[ $1 -eq 1 ]];then
     yum install -y etcd
