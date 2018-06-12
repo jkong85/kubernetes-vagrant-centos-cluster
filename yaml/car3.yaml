@@ -11,3 +11,5 @@ spec:
     imagePullPolicy: Always
     command: ["/bin/sh"]
     args: ["-c", "while true; do echo hello; sleep 10;done"]
+  nodeSelector:
+    kubernetes.io/hostname: node3
