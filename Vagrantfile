@@ -89,7 +89,7 @@ Vagrant.configure("2") do |config|
         #mv /etc/yum.repos.d/CentOS7-Base-163.repo /etc/yum.repos.d/CentOS-Base.repo
         # using socat to port forward in helm tiller
         # install  kmod and ceph-common for rook
-        yum install -y wget curl conntrack-tools vim net-tools socat ntp kmod ceph-common lynx git maven
+        yum install -y wget curl conntrack-tools vim net-tools socat ntp kmod ceph-common lynx git maven java-1.8.0-openjdk-devel
         # enable ntp to sync time
         echo 'sync time'
         systemctl start ntpd
