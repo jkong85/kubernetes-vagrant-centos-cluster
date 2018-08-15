@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
    vb.customize [ "guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 1000 ]
   end
 
-  $num_instances = 3
+  $num_instances = 4
 
   # curl https://discovery.etcd.io/new?size=3
   $etcd_cluster = "node1=http://172.17.8.101:2380"
@@ -74,8 +74,8 @@ Vagrant.configure("2") do |config|
   #   vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
-      vb.memory = "8072"
-      vb.cpus = 4
+      vb.memory = "6072"
+      vb.cpus =3 
       vb.name = "node#{i}"
     end
 
@@ -111,6 +111,7 @@ cat >> /etc/hosts <<EOF
 172.17.8.101 node1
 172.17.8.102 node2
 172.17.8.103 node3
+172.17.8.104 node4
 EOF
 
         cat /etc/hosts
@@ -270,7 +271,20 @@ EOF
           systemctl start kubelet
           systemctl enable kube-proxy
           systemctl start kube-proxy
-       fi
+        fi
+
+        if [[ $1 -eq 4 ]];then
+          echo "configure node4"
+          cp /vagrant/node4/* /etc/kubernetes/
+
+          systemctl daemon-reload
+
+          systemctl enable kubelet
+          systemctl start kubelet
+          systemctl enable kube-proxy
+          systemctl start kube-proxy
+        fi
+
 
       SHELL
       s.args = [i, ip, $etcd_cluster]
