@@ -216,6 +216,11 @@ EOF
         tar -xzvf /vagrant/kubernetes-server-linux-amd64.tar.gz -C /vagrant
         cp /vagrant/kubernetes/server/bin/* /usr/bin
 
+        echo "install golang..."
+        #wget https://storage.googleapis.com/golang/go1.9.2.linux-amd64.tar.gz -O go1.9.2.linux-amd64.tar.gz
+        tar -zxvf  /vagrant/go1.9.2.linux-amd64.tar.gz -C /usr/local/
+        export PATH=$PATH:/usr/local/go/bin
+
         cp /vagrant/systemd/*.service /usr/lib/systemd/system/
         mkdir -p /var/lib/kubelet
         mkdir -p ~/.kube
